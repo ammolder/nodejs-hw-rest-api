@@ -10,7 +10,6 @@ const controller = require("../../controllers/user");
 const auth = require("../../middlewares/auth");
 
 const router = express.Router();
-
 router.post(
   "/register",
   validateBody(createUserSchema),
@@ -41,5 +40,7 @@ router.patch(
   tryCatchWrapper(auth),
   tryCatchWrapper(controller.uploadAvatar)
 );
+router.get("/verify/:token", tryCatchWrapper(controller.verifyEmail));
+router.post("/verify", tryCatchWrapper(controller.sendVerify));
 
 module.exports = router;
